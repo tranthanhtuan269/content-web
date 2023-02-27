@@ -12,7 +12,9 @@
             {{ Form::select('language', $languages, null, ['class' => 'form-select my-3']) }}
         </div>
         <div class="col-12">
-            <a href="/words/create" class="btn btn-primary float-end mb-3">Create</a>
+            <div class="btn btn-primary float-end mb-3">Import</div>
+            <input type="file" id="myfile" name="myfile">
+            <a href="/words/create" class="btn btn-primary float-end mb-3 mx-2">Create</a>
         </div>
     </div>
 
@@ -44,4 +46,37 @@
         </tbody>
     </table>
     {!! $words->links() !!}
+
+    <script>
+        $(document).ready(() => {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $("#myfile").on('change',(function(e) {
+                e.preventDefault();
+                var file_data = $('#myfile').prop('files')[0];   
+                var form_data = new FormData();                  
+                form_data.append('file', file_data);
+                $.ajax({
+                    url: "/upload",
+                    type: "POST",
+                    data:  form_data,
+                    contentType: false,
+                    cache: false,
+                    processData:false,
+                    beforeSend : function()
+                    {
+                    },
+                    success: function(data)
+                    {
+                    },
+                    error: function(e) 
+                    {
+                    }          
+                });
+            }));
+        })
+    </script>
 @endsection

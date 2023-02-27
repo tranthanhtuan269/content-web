@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Word;
 use App\Models\Language;
+use App\Imports\WordsImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class WordController extends Controller
 {
@@ -81,5 +83,43 @@ class WordController extends Controller
     {
         $word->delete();
         return redirect()->route('words.index')->with('success','Word has been deleted successfully');
+    }
+
+    public function upload(Request $request){
+        if(isset($request->file)){
+            $file       = $request->file;
+            $string     = file_get_contents($file);
+            $return     = null;
+            switch($file->getClientOriginalExtension())
+            {
+                case "xlsx":
+                    Excel::import(new WordsImport, $file);
+                    $res=array('status'=>"200","time_created"=> $return);
+                    echo json_encode($res);
+                    break;
+                case "xls":
+                    Excel::import(new WordsImport, $file);
+                    $res=array('status'=>"200","time_created"=> $return);
+                    echo json_encode($res);
+                    break;
+                case "csv": 
+                    Excel::import(new WordsImport, $file);
+                    $res=array('status'=>"200","time_created"=> $return);
+                    echo json_encode($res);
+                    break;
+                break;
+                default:
+                    $res=array('status'=>"302","Message"=> "Extenstion File is invalid!");
+                    echo json_encode($res);  
+                break;
+            }
+        }
+    }
+
+    public function import() 
+    {
+        Excel::import(new WordsImport, 'words.xlsx');
+        
+        return redirect('/')->with('success', 'All good!');
     }
 }
