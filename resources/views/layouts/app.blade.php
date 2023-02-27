@@ -95,9 +95,9 @@
                 var inputTxt = $("#input-txt").val().toLowerCase();
                 var elString = "";
                 $(".text-reject p").each(function( index ) {
-                    var text = escape($(this).text().toLowerCase());
+                    var text = escape((' ' + $(this).text() + ' ').toLowerCase());
                     input = escape(inputTxt);
-                    inputTxt = unescape(replaceAll(input, text, ''));
+                    inputTxt = unescape(replaceAll(input, text, ' '));
                     console.log(inputTxt);
                 });
                 $("#output-txt").val(replaceAll(inputTxt, '  ', ' '));

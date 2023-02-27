@@ -2,6 +2,9 @@
 
 @section('content')
     <div class="row">
+        <div class="col-12">
+            {{ Form::select('language', $languages, isset($_GET['language']) ? $_GET['language'] : 1, ['class' => 'form-select my-3', 'id' => 'change-language']) }}
+        </div>
         <div class="col-md-9 ms-sm-auto col-lg-6 px-md-4">
             <label for="exampleFormControlTextarea1" class="form-label">Input</label>
             <textarea class="form-control" id="input-txt" rows="24"></textarea>
@@ -21,4 +24,12 @@
             @endforeach
         </div>
     </div>
+
+    <script>
+        $(document).ready(() => {
+            $('#change-language').change(function(){
+                window.location.href = "/dashboard?language=" + $(this).val();
+            })
+        })
+    </script>
 @endsection
