@@ -14,7 +14,7 @@
         <div class="col-12">
             <div class="btn btn-primary float-end mb-3" id="import-btn">Import</div>
             <input type="file" id="myfile" name="myfile" class="d-none">
-            <a href="/words/create" class="btn btn-primary float-end mb-3 mx-2">Create</a>
+            <a href="/words/create?language={{ isset($_GET['language']) ? $_GET['language'] : 1 }}" class="btn btn-primary float-end mb-3 mx-2">Create</a>
         </div>
     </div>
 

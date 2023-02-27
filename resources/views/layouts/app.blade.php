@@ -8,7 +8,7 @@
         <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
         <meta name="generator" content="Hugo 0.84.0">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
-        <title>Demo vội thôi</title>
+        <title>Remove stopword</title>
 
         <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
         
@@ -68,13 +68,13 @@
                         <li class="nav-item">
                             <a class="nav-link @if(Request::is('/') || Request::is('dashboard')) active @endif" aria-current="page" href="/dashboard">
                             <span data-feather="home"></span>
-                            Dashboard
+                            Remove stopword
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link @if(Request::is('words*')) active @endif" href="/words">
                             <span data-feather="file"></span>
-                            Words
+                            Stopword List
                             </a>
                         </li>
                     </ul>
