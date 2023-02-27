@@ -46,7 +46,13 @@ class WordController extends Controller
         
         Word::create($request->post());
 
-        return redirect()->route('words.index')->with('success','Word has been created successfully.');
+        if($request->language_id == 1){
+            $message = 'Stopword has been created successfully.';
+        }else{
+            $message = 'Stopword đã được tạo';
+        }
+
+        return redirect()->route('words.create', ['language'=> $request->language_id])->with('success', $message);
     }
 
     /**
@@ -78,7 +84,13 @@ class WordController extends Controller
         
         $word->fill($request->post())->save();
 
-        return redirect()->route('words.index')->with('success','Word has been updated successfully');
+        if($request->language_id == 1){
+            $message = 'Stopword has been updated successfully';
+        }else{
+            $message = 'Stopword đã được cập nhật';
+        }
+
+        return redirect()->route('words.index')->with('success', $message);
     }
 
     /**
@@ -87,7 +99,12 @@ class WordController extends Controller
     public function destroy(Word $word)
     {
         $word->delete();
-        return redirect()->route('words.index')->with('success','Word has been deleted successfully');
+        if($request->language_id == 1){
+            $message = 'Stopword has been deleted successfully';
+        }else{
+            $message = 'Stopword đã bị xóa';
+        }
+        return redirect()->route('words.index')->with('success', $message);
     }
 
     public function upload(Request $request){

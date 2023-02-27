@@ -93,6 +93,8 @@
         $(document).ready(function(){
             $('#remove-btn').click(function(){
                 var inputTxt = $("#input-txt").val().toLowerCase();
+                inputTxt = ' ' + inputTxt;
+                inputTxt = replaceAll(inputTxt, '.', ' .');
                 var elString = "";
                 $(".text-reject p").each(function( index ) {
                     var text = escape((' ' + $(this).text() + ' ').toLowerCase());
