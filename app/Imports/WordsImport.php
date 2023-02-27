@@ -17,7 +17,7 @@ class WordsImport implements ToModel
     {
         $language = Language::where('name', $row[1])->first();
         if($language){
-            $exists = Word::where('word',$row[0])->where('language', $language->id)->first();
+            $exists = Word::where('word',$row[0])->where('language_id', $language->id)->first();
             if ($exists) {
                 //LOGIC HERE TO UPDATE
                 return null;
