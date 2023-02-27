@@ -25,7 +25,7 @@ class WordsImport implements ToModel
 
             return new Word([
                 'word'     => $row[0],
-                'language'     => $language->id,
+                'language_id'     => $language->id,
             ]);
         }
     }
