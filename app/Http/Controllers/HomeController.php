@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Auth::check){
+        if(Auth::check()){
             $words = Word::get();
             return view('dashboard', ['words' => $words]);
         }else{
