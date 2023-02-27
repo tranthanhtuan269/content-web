@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Word;
+use App\Models\Language;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class WordsImport implements ToModel
@@ -14,15 +15,18 @@ class WordsImport implements ToModel
     */
     public function model(array $row)
     {
-        $exists = Word::where('word',$row[0])->where('language', $row[1])->first();
-        if ($exists) {
-            //LOGIC HERE TO UPDATE
-            return null;
+        $language = Language::where('name', $row[1])->first();
+        if($language){
+            $exists = Word::where('word',$row[0])->where('language', $language->id)->first();
+            if ($exists) {
+                //LOGIC HERE TO UPDATE
+                return null;
+            }
+
+            return new Word([
+                'word'     => $row[0],
+                'language'     => $language->id,
+            ]);
         }
-        
-        return new Word([
-            'word'     => $row[0],
-            'language'     => $row[1],
-        ]);
     }
 }

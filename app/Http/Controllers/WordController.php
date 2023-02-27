@@ -15,8 +15,13 @@ class WordController extends Controller
      */
     public function index()
     {
+        if(isset($_GET['language'])){
+            $words = Word::where('language_id', $_GET['language'])->orderBy('id','desc')->paginate(20);
+        }else{
+            $words = Word::where('language_id', 1)->orderBy('id','desc')->paginate(20);
+        }
+
         $languages = Language::pluck('name', 'id');
-        $words = Word::orderBy('id','desc')->paginate(20);
         return view('words.index', ['words' => $words, 'languages' => $languages]);
     }
 
@@ -36,7 +41,7 @@ class WordController extends Controller
     {
         $request->validate([
             'word' => 'required',
-            'language' => 'required',
+            'language_id' => 'required',
         ]);
         
         Word::create($request->post());
@@ -68,7 +73,7 @@ class WordController extends Controller
     {
         $request->validate([
             'word' => 'required',
-            'language' => 'required',
+            'language_id' => 'required',
         ]);
         
         $word->fill($request->post())->save();

@@ -53,10 +53,9 @@
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
     <div class="navbar-nav">
         <div class="nav-item text-nowrap">
-        <a class="nav-link px-3" href="#">Sign out</a>
+        <a class="nav-link px-3" href="/logout">Sign out</a>
         </div>
     </div>
     </header>
@@ -66,18 +65,18 @@
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link @if(Request::is('dashboard')) active @endif" aria-current="page" href="/dashboard">
-                        <span data-feather="home"></span>
-                        Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(Request::is('words*')) active @endif" href="/words">
-                        <span data-feather="file"></span>
-                        Words
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link @if(Request::is('/') || Request::is('dashboard')) active @endif" aria-current="page" href="/dashboard">
+                            <span data-feather="home"></span>
+                            Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @if(Request::is('words*')) active @endif" href="/words">
+                            <span data-feather="file"></span>
+                            Words
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -93,10 +92,13 @@
     <script>
         $(document).ready(function(){
             $('#remove-btn').click(function(){
-                var inputTxt = $("#input-txt").val();
+                var inputTxt = $("#input-txt").val().toLowerCase();
                 var elString = "";
                 $(".text-reject p").each(function( index ) {
-                    inputTxt = replaceAll(inputTxt, $(this).text(), '');
+                    var text = escape($(this).text().toLowerCase());
+                    input = escape(inputTxt);
+                    inputTxt = unescape(replaceAll(input, text, ''));
+                    console.log(inputTxt);
                 });
                 $("#output-txt").val(replaceAll(inputTxt, '  ', ' '));
             })
@@ -108,6 +110,7 @@
             function escapeRegExp(string) {
                 return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
             }
+
         })
     </script>
   </body>

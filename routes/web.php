@@ -16,9 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
@@ -29,6 +27,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('words', WordController::class);
 
     Route::post('/upload', [WordController::class, 'upload'])->name('words.upload');
+
+    Route::get('logout', function(){
+        \Auth::logout();
+        return redirect('/');
+    });
 });
 
 require __DIR__.'/auth.php';

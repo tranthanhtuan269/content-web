@@ -21,8 +21,8 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group my-2">
                     <strong>Language:</strong>
-                    {{ Form::select('language', $languages, null, ['class' => 'form-select mb-3']) }}
-                    @error('word')
+                    {{ Form::select('language_id', $languages, null, ['class' => 'form-select mb-3']) }}
+                    @error('language_id')
                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
                 </div>

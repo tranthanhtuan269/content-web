@@ -9,11 +9,11 @@
 
     <div class="row">
         <div class="col-12">
-            {{ Form::select('language', $languages, null, ['class' => 'form-select my-3']) }}
+            {{ Form::select('language', $languages, isset($_GET['language']) ? $_GET['language'] : 1, ['class' => 'form-select my-3', 'id' => 'change-language']) }}
         </div>
         <div class="col-12">
-            <div class="btn btn-primary float-end mb-3">Import</div>
-            <input type="file" id="myfile" name="myfile">
+            <div class="btn btn-primary float-end mb-3" id="import-btn">Import</div>
+            <input type="file" id="myfile" name="myfile" class="d-none">
             <a href="/words/create" class="btn btn-primary float-end mb-3 mx-2">Create</a>
         </div>
     </div>
@@ -32,7 +32,7 @@
                 <tr>
                     <td>{{ $word->id }}</td>
                     <td>{{ $word->word }}</td>
-                    <td>{{ $word->language }}</td>
+                    <td>{{ $word->language->name }}</td>
                     <td>
                         <form action="{{ route('words.destroy',$word->id) }}" method="Post">
                             <a class="btn btn-primary" href="{{ route('words.edit',$word->id) }}">Edit</a>
@@ -46,9 +46,13 @@
         </tbody>
     </table>
     {!! $words->links() !!}
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(() => {
+            $('#import-btn').click(() => {
+                $("#myfile").click();
+            })
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -71,12 +75,26 @@
                     },
                     success: function(data)
                     {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Words have been created!',
+                            icon: 'success',
+                            confirmButtonText: 'Great'
+                        }).then(function(isConfirm) {
+                            if (isConfirm) {
+                                location.reload();
+                            }
+                        })
                     },
                     error: function(e) 
                     {
                     }          
                 });
             }));
+
+            $('#change-language').change(function(){
+                window.location.href = "/words?language=" + $(this).val();
+            })
         })
     </script>
 @endsection
