@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WordController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DatatablesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,10 @@ Route::middleware('auth')->group(function () {
         \Auth::logout();
         return redirect('/');
     });
+
+    
+    Route::get('datatables/anyData', [DatatablesController::class, 'anyData'])->name('datatables.data');
+    Route::get('datatables/getIndex', [DatatablesController::class, 'getIndex'])->name('datatables');
 });
 
 require __DIR__.'/auth.php';
