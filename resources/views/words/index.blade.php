@@ -42,7 +42,7 @@
                     <td>{{ $word->language->name }}</td>
                     <td>
                         <form action="{{ route('words.destroy',$word->id) }}" method="Post">
-                            <a class="btn btn-primary" href="{{ route('words.edit',$word->id) }}">Edit</a>
+                            <a class="btn btn-primary" href="/words/{{ $word->id }}/edit?language={{ isset($_GET['language']) ? $_GET['language'] : 1 }}">Edit</a>
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button>

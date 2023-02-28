@@ -90,7 +90,7 @@ class WordController extends Controller
             $message = 'Stopword đã được cập nhật';
         }
 
-        return redirect()->route('words.index')->with('success', $message);
+        return redirect()->route('words.index', ['language' => $request->language_id])->with(['success' => $message]);
     }
 
     /**
