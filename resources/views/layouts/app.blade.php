@@ -102,7 +102,7 @@
                 inputTxt = replaceAll(inputTxt, ';', ' ;');
                 input = escape(inputTxt);
                 // add space after enter new line
-                input = replaceAll(input, '%0A', '%0A%20');
+                input = replaceAll(input, '%0A', '%20%0A%20');
                 var elString = "";
                 $(".text-reject p").each(function( index ) {
                     var text = escape((' ' + $(this).text() + ' ').toLowerCase());
