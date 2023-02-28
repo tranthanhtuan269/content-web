@@ -91,19 +91,6 @@
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function(){
-
-            $('#users-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: '/datatables/data',
-                columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'name', name: 'name' },
-                    { data: 'email', name: 'email' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'updated_at', name: 'updated_at' }
-                ]
-            });
             
             $('#remove-btn').click(function(){
                 var inputTxt = $("#input-txt").val().toLowerCase();
