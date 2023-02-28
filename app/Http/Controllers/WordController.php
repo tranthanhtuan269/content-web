@@ -98,13 +98,14 @@ class WordController extends Controller
      */
     public function destroy(Request $request, Word $word)
     {
+        $language = $word->language_id;
         $word->delete();
         if($request->language_id == 1){
             $message = 'Stopword has been deleted successfully';
         }else{
             $message = 'Stopword đã bị xóa';
         }
-        return redirect()->route('words.index')->with('success', $message);
+        return redirect()->route('words.index', ['language' => $language])->with('success', $message);
     }
 
     public function upload(Request $request){
