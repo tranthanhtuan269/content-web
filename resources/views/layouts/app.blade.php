@@ -93,18 +93,26 @@
         $(document).ready(function(){
             $('#remove-btn').click(function(){
                 var inputTxt = $("#input-txt").val().toLowerCase();
-                inputTxt = ' ' + inputTxt;
+                inputTxt = ' ' + inputTxt + ' ';
                 inputTxt = replaceAll(inputTxt, '.', ' .');
+                inputTxt = replaceAll(inputTxt, ',', ' ,');
+                inputTxt = replaceAll(inputTxt, '!', ' !');
+                inputTxt = replaceAll(inputTxt, '?', ' ?');
                 var elString = "";
                 $(".text-reject p").each(function( index ) {
                     var text = escape((' ' + $(this).text() + ' ').toLowerCase());
                     input = escape(inputTxt);
                     // add space after enter new line
                     input = replaceAll(input, '%0A', '%0A%20');
-                    inputTxt = unescape(replaceAll(input, text, ' '));
-                    console.log(inputTxt);
+                    input = replaceAll(input, text, ' ');
+                    input = replaceAll(input, '%20%20', '%20');
+                    input = replaceAll(input, '%0A%20', '%0A');
+                    input = replaceAll(input, '%20.', '.');
+                    input = replaceAll(input, '%20!', '!');
+                    input = replaceAll(input, '%20?', '?');
+                    inputTxt = unescape(input);
                 });
-                $("#output-txt").val(replaceAll(inputTxt, '  ', ' '));
+                $("#output-txt").val(inputTxt.substring(1));
             })
 
             function replaceAll(str, find, replace) {
