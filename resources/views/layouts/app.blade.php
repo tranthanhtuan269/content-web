@@ -11,7 +11,7 @@
         <title>Remove stopword</title>
 
         <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
-        
+
 
         <!-- Bootstrap core CSS -->
         <link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -40,14 +40,14 @@
             }
         }
         </style>
-        
+
         <!-- Custom styles for this template -->
         <link href="https://getbootstrap.com/docs/5.0/examples/dashboard/dashboard.css" rel="stylesheet">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     </head>
     <body>
-        
+
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Toh Content Web</a>
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -98,6 +98,8 @@
                 inputTxt = replaceAll(inputTxt, ',', ' ,');
                 inputTxt = replaceAll(inputTxt, '!', ' !');
                 inputTxt = replaceAll(inputTxt, '?', ' ?');
+                inputTxt = replaceAll(inputTxt, ':', ' :');
+                inputTxt = replaceAll(inputTxt, ';', ' ;');
                 input = escape(inputTxt);
                 // add space after enter new line
                 input = replaceAll(input, '%0A', '%0A%20');
@@ -111,6 +113,8 @@
                 input = replaceAll(input, '%20.', '.');
                 input = replaceAll(input, '%20!', '!');
                 input = replaceAll(input, '%20?', '?');
+                input = replaceAll(input, '%20:', ':');
+                input = replaceAll(input, '%20;', ';');
                 inputTxt = unescape(input);
                 $("#output-txt").val(inputTxt.substring(1));
             })

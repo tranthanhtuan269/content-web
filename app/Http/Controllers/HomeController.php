@@ -33,4 +33,10 @@ class HomeController extends Controller
             return redirect('/login');
         }
     }
+
+    public function ajaxLoadWordLanguage(Request $request)
+    {
+        $words = Word::where('language_id', $request->language)->get();
+        return response()->json(['status' => 200,"words"=>$words]);
+    }
 }

@@ -28,9 +28,16 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($words as $word)
+            @php
+                if(isset($_GET['page'])) {
+                    $page = (int) $_GET['page'];
+                }else {
+                    $page = 1;
+                }
+            @endphp
+            @foreach ($words as $key => $word)
                 <tr>
-                    <td>{{ $word->id }}</td>
+                    <td>{{($page - 1) * 20 + $key + 1 }}</td>
                     <td>{{ $word->word }}</td>
                     <td>{{ $word->language->name }}</td>
                     <td>
@@ -45,7 +52,7 @@
                 @endforeach
         </tbody>
     </table>
-    {!! $words->links() !!}
+    {!! $words->appends(request()->input()) !!}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(() => {
@@ -60,8 +67,8 @@
             });
             $("#myfile").on('change',(function(e) {
                 e.preventDefault();
-                var file_data = $('#myfile').prop('files')[0];   
-                var form_data = new FormData();                  
+                var file_data = $('#myfile').prop('files')[0];
+                var form_data = new FormData();
                 form_data.append('file', file_data);
                 $.ajax({
                     url: "/upload",
@@ -86,9 +93,9 @@
                             }
                         })
                     },
-                    error: function(e) 
+                    error: function(e)
                     {
-                    }          
+                    }
                 });
             }));
 

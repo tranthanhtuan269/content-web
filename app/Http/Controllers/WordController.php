@@ -16,9 +16,9 @@ class WordController extends Controller
     public function index()
     {
         if(isset($_GET['language'])){
-            $words = Word::where('language_id', $_GET['language'])->orderBy('id','desc')->paginate(20);
+            $words = Word::where('language_id', $_GET['language'])->paginate(20);
         }else{
-            $words = Word::where('language_id', 1)->orderBy('id','desc')->paginate(20);
+            $words = Word::where('language_id', 1)->paginate(20);
         }
 
         $languages = Language::pluck('name', 'id');
@@ -43,7 +43,7 @@ class WordController extends Controller
             'word' => 'required',
             'language_id' => 'required',
         ]);
-        
+
         Word::create($request->post());
 
         if($request->language_id == 1){
@@ -81,7 +81,7 @@ class WordController extends Controller
             'word' => 'required',
             'language_id' => 'required',
         ]);
-        
+
         $word->fill($request->post())->save();
 
         if($request->language_id == 1){
@@ -96,7 +96,7 @@ class WordController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Word $word)
+    public function destroy(Request $request, Word $word)
     {
         $word->delete();
         if($request->language_id == 1){
@@ -124,7 +124,7 @@ class WordController extends Controller
                     $res=array('status'=>"200","time_created"=> $return);
                     echo json_encode($res);
                     break;
-                case "csv": 
+                case "csv":
                     Excel::import(new WordsImport, $file);
                     $res=array('status'=>"200","time_created"=> $return);
                     echo json_encode($res);
@@ -132,16 +132,16 @@ class WordController extends Controller
                 break;
                 default:
                     $res=array('status'=>"302","Message"=> "Extenstion File is invalid!");
-                    echo json_encode($res);  
+                    echo json_encode($res);
                 break;
             }
         }
     }
 
-    public function import() 
+    public function import()
     {
         Excel::import(new WordsImport, 'words.xlsx');
-        
+
         return redirect('/')->with('success', 'All good!');
     }
 }

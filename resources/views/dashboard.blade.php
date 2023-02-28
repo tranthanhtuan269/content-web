@@ -28,7 +28,21 @@
     <script>
         $(document).ready(() => {
             $('#change-language').change(function(){
-                window.location.href = "/dashboard?language=" + $(this).val();
+                var language = $(this).val()
+                $.ajax({
+                    url: 'ajaxLoadWordLanguage',
+                    type: 'GET',
+                    data: {
+                        'language': language
+                    },
+                    success: function(res) {
+                        $('.text-reject').html('')
+                        const words = res.words
+                        for (var i = 0; i < words.length + 1; i++) {
+                            $('.text-reject').append($('<p></p>').html(words[i].word));
+                        }
+                    },
+                });
             })
         })
     </script>

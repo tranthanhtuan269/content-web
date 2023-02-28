@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+Route::get('/ajaxLoadWordLanguage', [HomeController::class, 'ajaxLoadWordLanguage']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
