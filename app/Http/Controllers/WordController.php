@@ -52,12 +52,12 @@ class WordController extends Controller
             $message = 'Stopword đã được tạo';
         }
 
-        return redirect()->route('words.create', ['language'=> $request->language_id])->with('success', $message);
+        return redirect()->route('words.index', ['language' => $request->language_id])->with(['success' => $message]);
     }
 
     /**
      * Display the specified resource.
-     */
+     */ 
     public function show(Word $word)
     {
         return view('words.show',compact('word'));
