@@ -99,6 +99,8 @@
                 $(".text-reject p").each(function( index ) {
                     var text = escape((' ' + $(this).text() + ' ').toLowerCase());
                     input = escape(inputTxt);
+                    // add space after enter new line
+                    input = replaceAll(input, '%0A', '%0A%20');
                     inputTxt = unescape(replaceAll(input, text, ' '));
                     console.log(inputTxt);
                 });
