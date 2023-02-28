@@ -98,20 +98,20 @@
                 inputTxt = replaceAll(inputTxt, ',', ' ,');
                 inputTxt = replaceAll(inputTxt, '!', ' !');
                 inputTxt = replaceAll(inputTxt, '?', ' ?');
+                input = escape(inputTxt);
+                // add space after enter new line
+                input = replaceAll(input, '%0A', '%0A%20');
                 var elString = "";
                 $(".text-reject p").each(function( index ) {
                     var text = escape((' ' + $(this).text() + ' ').toLowerCase());
-                    input = escape(inputTxt);
-                    // add space after enter new line
-                    input = replaceAll(input, '%0A', '%0A%20');
-                    input = replaceAll(input, text, ' ');
-                    input = replaceAll(input, '%20%20', '%20');
-                    input = replaceAll(input, '%0A%20', '%0A');
-                    input = replaceAll(input, '%20.', '.');
-                    input = replaceAll(input, '%20!', '!');
-                    input = replaceAll(input, '%20?', '?');
-                    inputTxt = unescape(input);
+                    input = replaceAll(input, text, '%20');
                 });
+                input = replaceAll(input, '%20%20', '%20');
+                input = replaceAll(input, '%0A%20', '%0A');
+                input = replaceAll(input, '%20.', '.');
+                input = replaceAll(input, '%20!', '!');
+                input = replaceAll(input, '%20?', '?');
+                inputTxt = unescape(input);
                 $("#output-txt").val(inputTxt.substring(1));
             })
 
