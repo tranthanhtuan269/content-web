@@ -38,7 +38,7 @@
             $('#word-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{!! route('datatables.data') !!}',
+                ajax: '{!! route('datatables.data', ['language'=> isset($_GET['language']) ? $_GET['language'] : 1]) !!}',
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'word', name: 'word' },
@@ -61,7 +61,7 @@
                 ],
                 fnDrawCallback: function( oSettings ) {
                     addEventListener();
-                },
+                }
             });
             
             $('#import-btn').click(() => {
@@ -118,25 +118,35 @@
                             @if($_GET['language'] == 2)
                                 title: 'Bạn có chắc chắn?',
                                 text: "Bạn có chắc chắn muốn xóa?",
+                                confirmButtonText: 'Vâng, xóa nó!',
+                                cancelButtonText: 'Không, dừng xóa!',
                             @else
                                 title: 'Are you sure?',
                                 text: "Are you sure to delete it?",
+                                confirmButtonText: 'Yes, delete it!',
+                                cancelButtonText: 'No, cancel!',
                             @endif
                         @else
                             title: 'Are you sure?',
                             text: "Are you sure to delete !",
+                            confirmButtonText: 'Yes, delete it!',
+                            cancelButtonText: 'No, cancel!',
                         @endif
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $('#form-' + id).submit();
                         }
                     })
                 })
+            }
+
+            function getParam()
+            {
+                return window.location.href.slice(window.location.href.indexOf('?') + 1).split('=')[1];
             }
 
             $('#change-language').change(function(){

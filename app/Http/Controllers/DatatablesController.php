@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Models\Word;
 use Yajra\Datatables\Datatables;
+use Illuminate\Http\Request;
 
 class DatatablesController extends Controller
 {
@@ -23,9 +24,13 @@ class DatatablesController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function anyData()
+    public function anyData(Request $request)
     {
-        return Datatables::of(Word::query())
+        $language = 1;
+        if(isset($request->language)){
+            $language = $request->language;
+        }
+        return Datatables::of(Word::where('language_id', $language)->get())
             ->addColumn('language', function ($word) {
                 return $word->language->name;
             })
