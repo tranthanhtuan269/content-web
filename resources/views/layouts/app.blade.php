@@ -118,6 +118,7 @@
                 input = input.replaceAll('%20:', ':');
                 input = input.replaceAll('%20;', ';');
                 inputTxt = unescape(input);
+                inputTxt = inputTxt.replaceAll('  ', ' ');
                 $("#output-txt").val(inputTxt.substring(1));
             })
 
