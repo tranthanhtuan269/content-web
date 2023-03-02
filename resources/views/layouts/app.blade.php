@@ -96,8 +96,8 @@
                 var inputTxt = $("#input-txt").val().toLowerCase();
                 inputTxt = inputTxt.replaceAll(' ', '  ');
                 inputTxt = ' ' + inputTxt + ' ';
+                inputTxt = inputTxt.replaceAll(',', '');
                 inputTxt = inputTxt.replaceAll('.', ' .');
-                inputTxt = inputTxt.replaceAll(',', ' ,');
                 inputTxt = inputTxt.replaceAll('!', ' !');
                 inputTxt = inputTxt.replaceAll('?', ' ?');
                 inputTxt = inputTxt.replaceAll(':', ' :');
